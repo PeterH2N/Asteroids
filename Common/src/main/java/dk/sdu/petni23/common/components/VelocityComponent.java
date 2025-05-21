@@ -1,18 +1,13 @@
 package dk.sdu.petni23.common.components;
 
 import dk.sdu.petni23.common.util.Vector2D;
+import dk.sdu.petni23.gameengine.component.Component;
 
 public class VelocityComponent extends Component
 {
-    private Vector2D velocity = new Vector2D(0,0);
-
-    public Vector2D getVelocity()
-    {
-        return velocity;
+    public final Vector2D velocity = new Vector2D();
+    public VelocityComponent(Vector2D vel) {
+        this.velocity.set(vel);
     }
-
-    public void setVelocity(Vector2D velocity)
-    {
-        this.velocity = velocity;
-    }
+    public VelocityComponent(){}
 }

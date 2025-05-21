@@ -1,29 +1,15 @@
 package dk.sdu.petni23.common.components;
 
 import dk.sdu.petni23.common.util.Vector2D;
+import dk.sdu.petni23.gameengine.component.Component;
 
 public class PositionComponent extends Component
 {
-    private Vector2D position = new Vector2D(0,0);
-    private double rotation = 0; // radians
+    public final Vector2D position = new Vector2D();
 
-    public Vector2D getPosition()
-    {
-        return position;
+    public PositionComponent(Vector2D position) {
+        this.position.set(position);
     }
 
-    public void setPosition(Vector2D position)
-    {
-        this.position = position;
-    }
-
-    public double getRotation()
-    {
-        return rotation;
-    }
-
-    public void setRotation(double rotation)
-    {
-        this.rotation = rotation;
-    }
+    public PositionComponent(){}
 }

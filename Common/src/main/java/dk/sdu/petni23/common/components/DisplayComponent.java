@@ -1,27 +1,6 @@
 package dk.sdu.petni23.common.components;
 
-public class DisplayComponent extends Component
-{
-    private double[] polygonXs;
-    private double[] polygonYs;
+import dk.sdu.petni23.gameengine.component.Component;
 
-    public double[] getPolygonXs()
-    {
-        return polygonXs;
-    }
-
-    public void setPolygonXs(double[] polygonXs)
-    {
-        this.polygonXs = polygonXs;
-    }
-
-    public double[] getPolygonYs()
-    {
-        return polygonYs;
-    }
-
-    public void setPolygonYs(double[] polygonYs)
-    {
-        this.polygonYs = polygonYs;
-    }
+public class DisplayComponent extends Component {
 }

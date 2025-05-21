@@ -13,8 +13,8 @@
     <modules>
         <module>Core</module>
         <module>Common</module>
-        <module>Nodes</module>
-        <module>Player</module>
+        <module>GameEngine</module>
+        <module>GameLogic</module>
     </modules>
     <properties>
         <java>java</java>
