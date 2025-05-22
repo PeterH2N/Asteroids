@@ -13,7 +13,12 @@ public class MoveSystem implements ISystem
             var pos = node.positionComponent.position;
             pos.add(node.velocityComponent.velocity.getMultiplied(deltaTime));
 
+            if (node.angularMomentumComponent != null && node.directionComponent != null) {
+                node.directionComponent.dir.rotateBy(node.angularMomentumComponent.momentum * deltaTime);
+            }
+
             double max = GameData.viewPortWidth / 2;
+            if (node.sizeComponent != null) max += node.sizeComponent.size * 0.5;
 
             // keep on screen
             if (pos.x > max) pos.x = -max + (pos.x - max);

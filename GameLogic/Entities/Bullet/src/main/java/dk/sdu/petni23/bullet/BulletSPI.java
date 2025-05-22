@@ -22,7 +22,7 @@ public class BulletSPI implements IEntitySPI {
         bullet.add(new VelocityComponent(dir.multiply(20).add(vel)));
         bullet.add(new DisplayComponent());
         bullet.add(new CircleComponent(0.15));
-        bullet.add(new DurationComponent(2));
+        bullet.add(new DurationComponent(1.5));
         return bullet;
     }
 }

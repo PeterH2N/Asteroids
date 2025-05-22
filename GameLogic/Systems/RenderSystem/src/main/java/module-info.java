@@ -1,7 +1,7 @@
 import dk.sdu.petni23.gameengine.node.INodeSPI;
 import dk.sdu.petni23.gameengine.services.IPlugin;
 import dk.sdu.petni23.gameengine.services.ISystem;
-import dk.sdu.petni23.rendersystem.RenderNodeSPI;
+import dk.sdu.petni23.rendersystem.RenderNode;
 import dk.sdu.petni23.rendersystem.RenderSystem;
 
 module RenderSystem {
@@ -9,7 +9,7 @@ module RenderSystem {
     requires Common;
     requires GameEngine;
     exports dk.sdu.petni23.rendersystem;
-    provides INodeSPI with RenderNodeSPI;
+    provides INodeSPI with RenderNode.SPI;
     provides ISystem with RenderSystem;
     provides IPlugin with RenderSystem;
 }

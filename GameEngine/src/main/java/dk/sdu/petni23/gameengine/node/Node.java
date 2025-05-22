@@ -8,13 +8,13 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Node
-{
+public abstract class Node {
     public final Entity parentEntity;
     public Node(Entity entity) {
         this.parentEntity = entity;
         initNode(entity, this);
     }
+
     public static List<Class<? extends Component>> getComponentClasses(Class<? extends Node> nodeClass) {
         List<Class<? extends Component>> componentClasses = new ArrayList<>();
         for (Field field : nodeClass.getDeclaredFields()) {

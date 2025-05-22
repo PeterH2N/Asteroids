@@ -7,10 +7,20 @@
     <file url="file://$PROJECT_DIR$/Core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameEngine/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameEngine/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Entities/Asteroid/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Entities/Asteroid/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Entities/Bullet/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Entities/Bullet/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Entities/Player/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Entities/Player/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Entities/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Entities/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Systems/ControlSystem/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Systems/ControlSystem/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Systems/DurationSystem/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Systems/DurationSystem/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Systems/InputSystem/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Systems/InputSystem/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Systems/MoveSystem/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Systems/MoveSystem/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Systems/RenderSystem/src/main/java" charset="UTF-8" />

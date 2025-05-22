@@ -19,6 +19,7 @@ public class PlayerSPI implements IEntitySPI
         var positionComponent = player.add(new PositionComponent());
         var velocityComponent = player.add(new VelocityComponent());
         var directionComponent = player.add(new DirectionComponent());
+        player.add(new SizeComponent(1.5));
 
         player.add(new DisplayComponent());
         var offset = new Vector2D(0.3, 0);
