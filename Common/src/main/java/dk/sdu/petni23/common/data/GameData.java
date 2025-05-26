@@ -40,4 +40,8 @@ public class GameData
     public static double getPPM() {
         return ppmProperty.get();
     }
+
+    public static void gameOver() {
+
+    }
 }

@@ -11,8 +11,6 @@ public class InputSystem implements ISystem, IPlugin {
     @Override
     public void update(double deltaTime) {
         GameData.gameKeys.update();
-        if (GameData.gameKeys.isDown(KeyCode.SPACE))
-            if (GameData.gameKeys.isPressed(KeyCode.SPACE)) System.out.println("space");
     }
 
     @Override

@@ -2,12 +2,13 @@ package dk.sdu.petni23.asteroid;
 
 import dk.sdu.petni23.common.components.*;
 import dk.sdu.petni23.common.util.Vector2D;
+import dk.sdu.petni23.gameengine.Engine;
 import dk.sdu.petni23.gameengine.entity.Entity;
 import dk.sdu.petni23.gameengine.entity.IEntitySPI;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class AsteroidSPI implements IEntitySPI {
@@ -18,12 +19,13 @@ public class AsteroidSPI implements IEntitySPI {
         var sizeComponent = parent.get(SizeComponent.class);
         if (sizeComponent == null) return null;
         if (positionComponent == null) positionComponent = new PositionComponent();
-        var asteroid = new Entity();
-        asteroid.add(positionComponent);
+        var asteroid = new Entity(AsteroidSPI.class);
+        var childPositionComponent = asteroid.add(new PositionComponent(positionComponent.position));
         asteroid.add(new VelocityComponent(new Vector2D(random.nextDouble(-2,2), random.nextDouble(-2,2))));
         asteroid.add(new AngularMomentumComponent(random.nextDouble(-1, 1)));
         asteroid.add(new DirectionComponent());
         asteroid.add(new DisplayComponent());
+        asteroid.add(new RoundComponent());
 
         asteroid.add(sizeComponent);
         double radius = sizeComponent.size * 0.5;
@@ -39,6 +41,40 @@ public class AsteroidSPI implements IEntitySPI {
             points.add(v);
         }
         asteroid.add(new PolygonComponent(points.toArray(new Vector2D[0])));
+
+        var collision = asteroid.add(new CollisionComponent());
+
+        collision.onCollision = node -> {
+            Engine.removeEntity(asteroid);
+            if (sizeComponent.size <= 3) return;
+            // asteroid splitter
+            var size = sizeComponent.size * 0.5;
+            Entity child = new Entity(null);
+            child.add(new SizeComponent(size));
+            child.add(childPositionComponent);
+            var child1 = create(child);
+            var child2 = create(child);
+
+            // set children to have same velocity
+            var vel = asteroid.get(VelocityComponent.class);
+            var vel1 = child1.get(VelocityComponent.class);
+            var vel2 = child2.get(VelocityComponent.class);
+            vel1.velocity.set(vel.velocity);
+            vel2.velocity.set(vel.velocity);
+            // add some velocity perpendicular to the velocity of the bullet
+            var velBullet = node.parentEntity.get(VelocityComponent.class).velocity;
+            var perp = velBullet.getPerp();
+            var perpN = perp.getNormalized();
+            child1.get(PositionComponent.class).position.add(perpN.getMultiplied(size * 0.5));
+            child2.get(PositionComponent.class).position.add(perpN.getMultiplied(-size * 0.5));
+            perp.multiply(0.05);
+            vel1.velocity.add(perp);
+            vel2.velocity.add(perp.getMultiplied(-1));
+
+            Engine.addEntity(child1);
+            Engine.addEntity(child2);
+        };
+        asteroid.add(new LayerComponent(LayerComponent.Layer.ENEMY));
 
         return asteroid;
     }

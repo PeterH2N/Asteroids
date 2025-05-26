@@ -45,7 +45,7 @@ public class RenderSystem implements ISystem, IPlugin
         for (int i = 0; i < node.polygonComponent.points.size(); i++) {
             var point = new Vector2D(node.polygonComponent.points.get(i));
             // rotate based on direction
-            if (node.directionComponent != null) {
+            if (node.directionComponent != null && node.displayComponent.rotateWithDirection) {
                 double angle = node.directionComponent.dir.getAngle();
                 point.rotateBy(angle);
             }

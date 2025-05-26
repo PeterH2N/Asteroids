@@ -14,12 +14,13 @@ public class PlayerSPI implements IEntitySPI
     @Override
     public Entity create(Entity parent)
     {
-        Entity player = new Entity();
+        Entity player = new Entity(PlayerSPI.class);
 
         var positionComponent = player.add(new PositionComponent());
         var velocityComponent = player.add(new VelocityComponent());
         var directionComponent = player.add(new DirectionComponent());
         player.add(new SizeComponent(1.5));
+        player.add(new LayerComponent(LayerComponent.Layer.PLAYER));
 
         player.add(new DisplayComponent());
         var offset = new Vector2D(0.3, 0);
@@ -34,7 +35,7 @@ public class PlayerSPI implements IEntitySPI
         player.add(new PolygonComponent(A,C,G,F,B));
 
         // the rocket trail that is visible when boosting
-        var trail = new Entity();
+        var trail = new Entity(null);
         var H = new Vector2D(-0.5, 0.2).add(offset);
         var I = new Vector2D(-0.5, -0.2).add(offset);
         var J = new Vector2D(-1, 0).add(offset);
@@ -72,6 +73,14 @@ public class PlayerSPI implements IEntitySPI
            if (bulletSPI == null) return;
            Engine.addEntity(bulletSPI.create(player));
         });
+
+        var collision = player.add(new CollisionComponent());
+        collision.onCollision = node -> {
+            Engine.removeEntity(player);
+            Engine.removeEntity(trail);
+        };
+        player.add(new RespawnComponent());
+        player.add(new AIComponent());
 
         return player;
     }

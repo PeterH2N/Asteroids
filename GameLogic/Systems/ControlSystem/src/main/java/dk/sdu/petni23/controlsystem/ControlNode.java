@@ -12,6 +12,16 @@ public class ControlNode extends Node {
         super(entity);
     }
 
+    @Override
+    public void onRemove() {
+
+    }
+
+    @Override
+    public void onAdd() {
+
+    }
+
 
     public static class SPI extends INodeSPI {
         public SPI() {

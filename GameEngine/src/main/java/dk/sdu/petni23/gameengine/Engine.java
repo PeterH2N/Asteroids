@@ -12,35 +12,61 @@ import java.util.*;
 
 public class Engine
 {
-    private final static List<Entity> entities = new ArrayList<>();
+    private final static Map<Long, Entity> entities = new HashMap<>();
     private final static List<ISystem> systems = getServices(ISystem.class);
     private final static List<IPlugin> plugins = getServices(IPlugin.class);
     private final static List<Node> nodes = new ArrayList<>();
     private final static Collection<? extends INodeSPI> nodeSPIs = getServices(INodeSPI.class);
     private final static List<IEntitySPI> entitySPIs = getServices(IEntitySPI.class);
-    public static void addEntity(Entity entity) {
-        if (entities.contains(entity)) return;
-        entities.add(entity);
+    public static Entity addEntity(Entity entity) {
+        if (entities.get(entity.getId()) != null) return entity;
+        entities.put(entity.getId(), entity);
         for (var spi : nodeSPIs) {
             if (spi.requirementsMet(entity.getComponentClasses())) {
                 try {
-                    nodes.add(spi.nodeClass.getConstructor(Entity.class).newInstance(entity));
+                    var node = spi.nodeClass.getConstructor(Entity.class).newInstance(entity);
+                    nodes.add(node);
+                    node.onAdd();
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     throw new RuntimeException(e);
                 }
             }
         }
+        return entity;
     }
 
     public static void removeEntity(Entity entity) {
-        entities.remove(entity);
-        nodes.removeIf(node -> node.parentEntity == entity);
+        if (entity == null) return;
+        if (entities.get(entity.getId()) == null) return;
+        // store removed nodes to call their onRemove method afterward
+        List<Node> removedNodes = new ArrayList<>();
+        nodes.removeIf(node -> {
+            if (node.parentEntity == entity) {
+                removedNodes.add(node);
+                return true;
+            }
+            return false;
+        });
+        removedNodes.forEach(Node::onRemove);
+        entities.remove(entity.getId());
+
+    }
+
+    public static Entity getEntity(Entity entity) {
+        return entities.get(entity.getId());
     }
 
     public static void start() {
         systems.sort(Comparator.comparingInt(ISystem::getPriority));
         for (var plugin : plugins) {
             plugin.start();
+        }
+    }
+
+    public static void stop() {
+        entities.forEach((aLong, entity) -> Engine.removeEntity(entity));
+        for (var plugin : plugins) {
+            plugin.stop();
         }
     }
 

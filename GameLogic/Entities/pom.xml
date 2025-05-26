@@ -24,6 +24,7 @@
         <module>Player</module>
         <module>Bullet</module>
         <module>Asteroid</module>
+        <module>UFO</module>
     </modules>
 
     <dependencies>

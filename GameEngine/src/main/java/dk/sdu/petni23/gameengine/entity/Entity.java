@@ -1,6 +1,5 @@
 package dk.sdu.petni23.gameengine.entity;
 
-import dk.sdu.petni23.gameengine.Engine;
 import dk.sdu.petni23.gameengine.component.Component;
 
 import java.util.Collection;
@@ -9,9 +8,14 @@ import java.util.Map;
 
 public class Entity
 {
+    public final Class<? extends IEntitySPI> type;
     private static long idCount = 0;
     private final Long id = idCount++;
     private final Map<Class<? extends Component>, Component> components = new HashMap<>();
+
+    public Entity(Class<? extends IEntitySPI> type) {
+        this.type = type;
+    }
 
     public <T extends Component> T add(T component) {
         Class<? extends Component> c = component.getClass();

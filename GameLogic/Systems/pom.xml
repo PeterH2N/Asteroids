@@ -26,6 +26,10 @@
         <module>ControlSystem</module>
         <module>InputSystem</module>
         <module>DurationSystem</module>
+        <module>RoundSystem</module>
+        <module>CollisionSystem</module>
+        <module>RespawnSystem</module>
+        <module>AISystem</module>
     </modules>
 
     <dependencies>

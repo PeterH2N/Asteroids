@@ -9,7 +9,7 @@ public class DurationSystem implements ISystem {
         for (var node : Engine.getNodes(DurationNode.class)) {
             node.durationComponent.timePassed += deltaTime;
             if (node.durationComponent.timePassed >= node.durationComponent.duration) {
-                Engine.removeEntity(node.parentEntity);
+                 Engine.removeEntity(node.parentEntity);
             }
         }
     }

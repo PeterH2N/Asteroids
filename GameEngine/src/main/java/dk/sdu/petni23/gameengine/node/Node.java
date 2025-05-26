@@ -56,4 +56,7 @@ public abstract class Node {
         }
         return components;
     }
+
+    public abstract void onRemove();
+    public abstract  void onAdd();
 }
