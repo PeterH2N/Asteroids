@@ -34,7 +34,7 @@ public class AISystem implements ISystem {
             // direction
             var pos = player.positionComponent.position;
             var dir = pos.getSubtracted(node.positionComponent.position).getNormalized();
-            dir.rotateBy(random.nextDouble(-0.2,0.2)); // aim slack
+            dir.rotateBy(random.nextDouble(-0.4,0.4)); // aim slack
             node.directionComponent.dir.set(dir);
 
             // shooting

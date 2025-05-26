@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 public class CollisionComponent extends Component {
     public Consumer<Node> onCollision;
+    public boolean active = true;
 
     public CollisionComponent(Consumer<Node> onCollision) {
         this.onCollision = onCollision;

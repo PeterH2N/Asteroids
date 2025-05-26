@@ -1,5 +1,6 @@
 package dk.sdu.petni23.respawnsystem;
 
+import dk.sdu.petni23.common.components.CollisionComponent;
 import dk.sdu.petni23.common.components.RespawnComponent;
 import dk.sdu.petni23.gameengine.Engine;
 import dk.sdu.petni23.gameengine.entity.Entity;
@@ -18,11 +19,13 @@ public class RespawnNode extends Node {
     public void onRemove() {
         RespawnSystem.player = null;
         Engine.removeEntity(RespawnSystem.indicators.removeLast());
+        RespawnSystem.timeSinceDeath = 0;
     }
 
     @Override
     public void onAdd() {
         RespawnSystem.player = parentEntity;
+        parentEntity.get(CollisionComponent.class).active = false;
     }
 
     public static class SPI extends INodeSPI {

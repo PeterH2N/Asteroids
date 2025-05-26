@@ -20,7 +20,7 @@ public class RoundSystem implements ISystem, IPlugin {
     final static List<Entity> roundEntities = new ArrayList<>();
     private static int roundNumber = 0;
     private static final double delayBetweenRounds = 5; // seconds
-    private static double currentDelay = 0;
+    private static double currentDelay = 5;
     private final static Random random = new Random();
     @Override
     public void update(double deltaTime) {
@@ -35,7 +35,7 @@ public class RoundSystem implements ISystem, IPlugin {
         // spawn 5 asteroids, add 2 for every round
         currentDelay = 0;
         int numAsteroids = 5 + roundNumber * 2;
-        int numUFOs = roundNumber + 1;
+        int numUFOs = roundNumber / 2;
         for (int i = 0; i < numAsteroids; i++) {
             Engine.addEntity(getAsteroid());
         }

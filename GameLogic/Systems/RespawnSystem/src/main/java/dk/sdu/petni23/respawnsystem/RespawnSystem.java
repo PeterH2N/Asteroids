@@ -1,9 +1,6 @@
 package dk.sdu.petni23.respawnsystem;
 
-import dk.sdu.petni23.common.components.DirectionComponent;
-import dk.sdu.petni23.common.components.DisplayComponent;
-import dk.sdu.petni23.common.components.PolygonComponent;
-import dk.sdu.petni23.common.components.PositionComponent;
+import dk.sdu.petni23.common.components.*;
 import dk.sdu.petni23.common.data.GameData;
 import dk.sdu.petni23.common.util.Vector2D;
 import dk.sdu.petni23.gameengine.Engine;
@@ -18,24 +15,37 @@ public class RespawnSystem implements ISystem, IPlugin {
     // only the player can respawn.
     static Entity player;
     private static final double delay = 2;
-    private static double timeSinceDeath = 0;
+    static double timeSinceDeath = 0;
     private static int lives = 3;
     static List<Entity> indicators = new ArrayList<>();
+    static double flicker = 0;
 
     @Override
     public void update(double deltaTime) {
-        if (player != null) return;
-
         timeSinceDeath += deltaTime;
-        if (timeSinceDeath >= delay && lives > 1) {
-            var playerSPI = Engine.getEntitySPI("PlayerSPI");
-            if (playerSPI == null) return;
-            Engine.addEntity(playerSPI.create(null));
-            timeSinceDeath = 0;
-            lives--;
+        if (player == null) {
+            if (timeSinceDeath >= delay && lives > 1) {
+                var playerSPI = Engine.getEntitySPI("PlayerSPI");
+                if (playerSPI == null) return;
+                var p = Engine.addEntity(playerSPI.create(null));
+                p.get(CollisionComponent.class).active = false;
+                timeSinceDeath = 0;
+                lives--;
+            }
+            if (lives <= 0) GameData.gameOver();
+        } else if (!player.get(CollisionComponent.class).active) {
+            if (timeSinceDeath >= delay + 2) {
+                player.get(CollisionComponent.class).active = true;
+                player.get(DisplayComponent.class).visible = true;
+            } else {
+                if (flicker > 0.15){
+                    var display = player.get(DisplayComponent.class);
+                    display.visible = !display.visible;
+                    flicker = 0;
+                }
+                flicker += deltaTime;
+            }
         }
-
-        if (lives <= 0) GameData.gameOver();
     }
 
     @Override

@@ -21,6 +21,7 @@ public class RenderSystem implements ISystem, IPlugin
         gc.setStroke(Color.WHITE);
         gc.setFill(Color.WHITE);
         for (var node : Engine.getNodes(RenderNode.class)) {
+            if (!node.displayComponent.visible) continue;
             renderPolygon(node, gc);
             renderCircle(node, gc);
         }

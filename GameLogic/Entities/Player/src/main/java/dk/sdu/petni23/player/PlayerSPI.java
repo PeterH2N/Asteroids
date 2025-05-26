@@ -22,7 +22,7 @@ public class PlayerSPI implements IEntitySPI
         player.add(new SizeComponent(1.5));
         player.add(new LayerComponent(LayerComponent.Layer.PLAYER));
 
-        player.add(new DisplayComponent());
+        var display = player.add(new DisplayComponent());
         var offset = new Vector2D(0.3, 0);
 
         // polygon points
@@ -43,7 +43,7 @@ public class PlayerSPI implements IEntitySPI
         trail.add(positionComponent);
         trail.add(directionComponent);
         trail.add(new PolygonComponent(H,I,J));
-        trail.add(new DisplayComponent());
+        trail.add(display);
 
         AtomicInteger trailFlicker = new AtomicInteger();
         // controls
