@@ -18,9 +18,9 @@ import java.util.Random;
 public class RoundSystem implements ISystem, IPlugin {
 
     final static List<Entity> roundEntities = new ArrayList<>();
-    private static int roundNumber = 0;
+    private static int roundNumber;
     private static final double delayBetweenRounds = 5; // seconds
-    private static double currentDelay = 5;
+    private static double currentDelay;
     private final static Random random = new Random();
     @Override
     public void update(double deltaTime) {
@@ -80,7 +80,8 @@ public class RoundSystem implements ISystem, IPlugin {
 
     @Override
     public void start() {
-
+        roundNumber = 0;
+        currentDelay = delayBetweenRounds;
     }
 
     @Override

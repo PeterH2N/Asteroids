@@ -46,7 +46,16 @@ public class AsteroidSPI implements IEntitySPI {
 
         collision.onCollision = node -> {
             Engine.removeEntity(asteroid);
-            if (sizeComponent.size <= 3) return;
+
+            if (sizeComponent.size <= 3) {
+                // particles
+                int numParticles = random.nextInt((int) (sizeComponent.size * 2), (int) (sizeComponent.size * 4));
+                for (int i = 0; i < numParticles; i++) {
+                    Engine.addEntity(particle(childPositionComponent, sizeComponent.size));
+                }
+                return;
+            }
+
             // asteroid splitter
             var size = sizeComponent.size * 0.5;
             Entity child = new Entity(null);
@@ -77,5 +86,21 @@ public class AsteroidSPI implements IEntitySPI {
         asteroid.add(new LayerComponent(LayerComponent.Layer.ENEMY));
 
         return asteroid;
+    }
+
+    Entity particle(PositionComponent positionComponent, double size) {
+        var particle = new Entity(null);
+        particle.add(new DisplayComponent());
+        particle.add(new CircleComponent(0.1));
+        particle.add(new DurationComponent(random.nextDouble(1,2)));
+        var pos = positionComponent.position.clone();
+        // offset position
+        var n = new Vector2D(random.nextDouble(-1,1), random.nextDouble(-1,1)).normalize().multiply(size * random.nextDouble(0.2, 0.7));
+        pos.add(n);
+        particle.add(new PositionComponent(pos));
+        particle.add(new VelocityComponent(n));
+
+
+        return particle;
     }
 }

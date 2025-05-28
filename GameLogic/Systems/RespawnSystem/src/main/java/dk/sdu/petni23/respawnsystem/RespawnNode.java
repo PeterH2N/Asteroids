@@ -20,6 +20,7 @@ public class RespawnNode extends Node {
         RespawnSystem.player = null;
         Engine.removeEntity(RespawnSystem.indicators.removeLast());
         RespawnSystem.timeSinceDeath = 0;
+        RespawnSystem.lives--;
     }
 
     @Override

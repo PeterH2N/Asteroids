@@ -15,24 +15,24 @@ public class RespawnSystem implements ISystem, IPlugin {
     // only the player can respawn.
     static Entity player;
     private static final double delay = 2;
-    static double timeSinceDeath = 0;
-    private static int lives = 3;
+    static double timeSinceDeath;
+    static int lives;
     static List<Entity> indicators = new ArrayList<>();
-    static double flicker = 0;
+    static double flicker;
 
     @Override
     public void update(double deltaTime) {
         timeSinceDeath += deltaTime;
         if (player == null) {
-            if (timeSinceDeath >= delay && lives > 1) {
+            if (timeSinceDeath >= delay && lives > 0) {
                 var playerSPI = Engine.getEntitySPI("PlayerSPI");
                 if (playerSPI == null) return;
                 var p = Engine.addEntity(playerSPI.create(null));
                 p.get(CollisionComponent.class).active = false;
-                timeSinceDeath = 0;
-                lives--;
             }
-            if (lives <= 0) GameData.gameOver();
+            if (lives <= 0) {
+                GameData.gameOver();
+            }
         } else if (!player.get(CollisionComponent.class).active) {
             if (timeSinceDeath >= delay + 2) {
                 player.get(CollisionComponent.class).active = true;
@@ -55,6 +55,9 @@ public class RespawnSystem implements ISystem, IPlugin {
 
     @Override
     public void start() {
+        lives = 3;
+        timeSinceDeath = delay;
+        flicker = 0;
         // indicators will be taken from player's components
         var spi = Engine.getEntitySPI("PlayerSPI");
         if (spi == null) return;
@@ -66,7 +69,6 @@ public class RespawnSystem implements ISystem, IPlugin {
 
     @Override
     public void stop() {
-        lives = 3;
         indicators.clear();
     }
 

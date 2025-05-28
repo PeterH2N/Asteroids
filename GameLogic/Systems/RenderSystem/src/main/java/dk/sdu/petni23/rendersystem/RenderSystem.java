@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 
 public class RenderSystem implements ISystem, IPlugin
 {
-    private final static Canvas canvas = new Canvas();
+    private static Canvas canvas;
     @Override
     public void update(double deltaTime)
     {
@@ -62,15 +62,16 @@ public class RenderSystem implements ISystem, IPlugin
     @Override
     public void start()
     {
+        canvas = new Canvas();
         GameData.gameWindow.getChildren().add(canvas);
         canvas.widthProperty().bind(GameData.gameWindow.widthProperty());
         canvas.heightProperty().bind(GameData.gameWindow.heightProperty());
-
     }
 
     @Override
     public void stop() {
-
+        GameData.gameWindow.getChildren().remove(canvas);
+        canvas = null;
     }
 
     Vector2D toScreenSpace(double x, double y) {

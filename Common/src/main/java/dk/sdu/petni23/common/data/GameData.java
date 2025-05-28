@@ -1,5 +1,6 @@
 package dk.sdu.petni23.common.data;
 
+import dk.sdu.petni23.gameengine.Engine;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -42,6 +43,7 @@ public class GameData
     }
 
     public static void gameOver() {
-
+        Engine.stop();
+        Engine.start();
     }
 }

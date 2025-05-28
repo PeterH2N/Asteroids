@@ -7,6 +7,7 @@ import dk.sdu.petni23.gameengine.entity.IEntitySPI;
 import dk.sdu.petni23.common.util.Vector2D;
 import javafx.scene.input.KeyCode;
 
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerSPI implements IEntitySPI
@@ -29,8 +30,8 @@ public class PlayerSPI implements IEntitySPI
         var A = new Vector2D(0.5,0).add(offset);
         var B = new Vector2D(-0.75,0.5).add(offset);
         var C = new Vector2D(-0.75,-0.5).add(offset);
-        var F = new Vector2D(-0.5, 0.4).add(offset);
-        var G = new Vector2D(-0.5, -0.4).add(offset);
+        var F = new Vector2D(-0.5, 0.2).add(offset);
+        var G = new Vector2D(-0.5, -0.2).add(offset);
 
         player.add(new PolygonComponent(A,C,G,F,B));
 
@@ -78,10 +79,33 @@ public class PlayerSPI implements IEntitySPI
         collision.onCollision = node -> {
             Engine.removeEntity(player);
             Engine.removeEntity(trail);
+
+            // particles
+            Engine.addEntity(line(new PolygonComponent(A,B), positionComponent, directionComponent, velocityComponent));
+            Engine.addEntity(line(new PolygonComponent(A,C), positionComponent, directionComponent, velocityComponent));
+            Engine.addEntity(line(new PolygonComponent(F,G), positionComponent, directionComponent, velocityComponent));
+
         };
         player.add(new RespawnComponent());
         player.add(new AIComponent());
 
         return player;
+    }
+
+    Entity line(PolygonComponent polygonComponent, PositionComponent positionComponent, DirectionComponent directionComponent, VelocityComponent velocityComponent) {
+        var line = new Entity(null);
+        Random random = new Random();
+
+        var lineDisplay = new DisplayComponent();
+        line.add(lineDisplay);
+        var duration = new DurationComponent(2);
+        line.add(duration);
+        line.add(polygonComponent);
+        line.add(new PositionComponent(positionComponent.position));
+        line.add(new DirectionComponent(directionComponent.dir));
+        line.add(new AngularMomentumComponent(random.nextDouble(-1,1)));
+        line.add(new VelocityComponent(velocityComponent.velocity.getMultiplied(0.2)));
+
+        return line;
     }
 }
