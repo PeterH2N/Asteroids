@@ -1,8 +1,7 @@
 module GameEngine {
-    uses dk.sdu.petni23.gameengine.node.INodeSPI;
-    uses dk.sdu.petni23.gameengine.services.ISystem;
-    uses dk.sdu.petni23.gameengine.entity.IEntitySPI;
-    uses dk.sdu.petni23.gameengine.services.IPlugin;
+    requires spring.core;
+    requires spring.context;
+    requires spring.beans;
     exports dk.sdu.petni23.gameengine.services;
     exports dk.sdu.petni23.gameengine.entity;
     exports dk.sdu.petni23.gameengine.node;

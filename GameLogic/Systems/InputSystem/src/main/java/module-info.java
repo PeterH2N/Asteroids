@@ -1,6 +1,5 @@
 import dk.sdu.petni23.gameengine.services.IPlugin;
 import dk.sdu.petni23.inputsystem.InputSystem;
-import dk.sdu.petni23.gameengine.node.INodeSPI;
 import dk.sdu.petni23.gameengine.services.ISystem;
 
 

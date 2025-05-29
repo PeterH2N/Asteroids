@@ -25,7 +25,7 @@ public class BulletSPI implements IEntitySPI {
         bullet.add(new CircleComponent(0.15));
         bullet.add(new SizeComponent(0.3));
         var collision = bullet.add(new CollisionComponent());
-        collision.onCollision = node -> Engine.removeEntity(bullet);
+        collision.onCollision = node -> Engine.get().removeEntity(bullet);
         bullet.add(new LayerComponent(layer.layer));
         bullet.add(new DurationComponent(1.5));
         return bullet;

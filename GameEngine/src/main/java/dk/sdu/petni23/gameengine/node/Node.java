@@ -6,13 +6,13 @@ import dk.sdu.petni23.gameengine.entity.Entity;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public abstract class Node {
-    public final Entity parentEntity;
-    public Node(Entity entity) {
-        this.parentEntity = entity;
-        initNode(entity, this);
+    public Entity parentEntity;
+    public Node() {
     }
 
     public static List<Class<? extends Component>> getComponentClasses(Class<? extends Node> nodeClass) {
@@ -55,6 +55,10 @@ public abstract class Node {
             }
         }
         return components;
+    }
+
+    public boolean requirementsMet(Collection<Class<? extends Component>> componentClasses) {
+        return new HashSet<>(componentClasses).containsAll(Node.getComponentClasses(this.getClass()));
     }
 
     public abstract void onRemove();

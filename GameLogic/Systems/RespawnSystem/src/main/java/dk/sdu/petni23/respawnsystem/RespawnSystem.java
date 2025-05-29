@@ -25,16 +25,16 @@ public class RespawnSystem implements ISystem, IPlugin {
         timeSinceDeath += deltaTime;
         if (player == null) {
             if (timeSinceDeath >= delay && lives > 0) {
-                var playerSPI = Engine.getEntitySPI("PlayerSPI");
+                var playerSPI = Engine.get().getEntitySPI("PlayerSPI");
                 if (playerSPI == null) return;
-                var p = Engine.addEntity(playerSPI.create(null));
+                var p = Engine.get().addEntity(playerSPI.create(null));
                 p.get(CollisionComponent.class).active = false;
             }
             if (lives <= 0) {
                 GameData.gameOver();
             }
         } else if (!player.get(CollisionComponent.class).active) {
-            if (timeSinceDeath >= delay + 2) {
+            if (timeSinceDeath >= delay + 1) {
                 player.get(CollisionComponent.class).active = true;
                 player.get(DisplayComponent.class).visible = true;
             } else {
@@ -59,11 +59,11 @@ public class RespawnSystem implements ISystem, IPlugin {
         timeSinceDeath = delay;
         flicker = 0;
         // indicators will be taken from player's components
-        var spi = Engine.getEntitySPI("PlayerSPI");
+        var spi = Engine.get().getEntitySPI("PlayerSPI");
         if (spi == null) return;
         var polygon = spi.create(null).get(PolygonComponent.class);
         for (int i = 0; i < lives; i++) {
-            indicators.add(Engine.addEntity(makeIndicator(i, polygon)));
+            indicators.add(Engine.get().addEntity(makeIndicator(i, polygon)));
         }
     }
 
@@ -79,7 +79,7 @@ public class RespawnSystem implements ISystem, IPlugin {
         indicator.add(new DisplayComponent());
         indicator.add(pc);
 
-        pos.y = GameData.viewPortWidth * 0.5 - 2;
+        pos.y = GameData.viewPortWidth * 0.5 - 4;
         pos.x = -GameData.viewPortWidth * 0.5 + 2;
         pos.x += 2 * i;
 

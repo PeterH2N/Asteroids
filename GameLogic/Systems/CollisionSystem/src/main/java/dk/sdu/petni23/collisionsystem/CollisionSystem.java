@@ -6,7 +6,7 @@ import dk.sdu.petni23.gameengine.services.ISystem;
 public class CollisionSystem implements ISystem {
     @Override
     public void update(double deltaTime) {
-        var nodes = Engine.getNodes(CollisionNode.class);
+        var nodes = Engine.get().getNodes(CollisionNode.class);
         for (var node1 : nodes) {
             if (!node1.collisionComponent.active) continue;
             for (var node2 : nodes) {

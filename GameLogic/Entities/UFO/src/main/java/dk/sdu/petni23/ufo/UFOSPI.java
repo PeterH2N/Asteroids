@@ -17,6 +17,7 @@ public class UFOSPI implements IEntitySPI {
         ufo.add(new DirectionComponent());
         ufo.add(new SizeComponent(1.5));
         ufo.add(new LayerComponent(LayerComponent.Layer.ENEMY));
+        ufo.add(new ScoreComponent(100));
 
         var display = ufo.add(new DisplayComponent());
         display.rotateWithDirection = false;
@@ -35,7 +36,7 @@ public class UFOSPI implements IEntitySPI {
         ufo.add(new AIComponent());
         ufo.add(new RoundComponent());
         var collision = ufo.add(new CollisionComponent());
-        collision.onCollision = node -> Engine.removeEntity(ufo);
+        collision.onCollision = node -> Engine.get().removeEntity(ufo);
 
         return ufo;
     }

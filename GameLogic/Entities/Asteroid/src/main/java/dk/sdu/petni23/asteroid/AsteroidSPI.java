@@ -8,7 +8,6 @@ import dk.sdu.petni23.gameengine.entity.IEntitySPI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class AsteroidSPI implements IEntitySPI {
@@ -26,6 +25,8 @@ public class AsteroidSPI implements IEntitySPI {
         asteroid.add(new DirectionComponent());
         asteroid.add(new DisplayComponent());
         asteroid.add(new RoundComponent());
+
+        asteroid.add(new ScoreComponent((int) (5 * sizeComponent.size) / 5 * 5));
 
         asteroid.add(sizeComponent);
         double radius = sizeComponent.size * 0.5;
@@ -45,13 +46,13 @@ public class AsteroidSPI implements IEntitySPI {
         var collision = asteroid.add(new CollisionComponent());
 
         collision.onCollision = node -> {
-            Engine.removeEntity(asteroid);
+            Engine.get().removeEntity(asteroid);
 
             if (sizeComponent.size <= 3) {
                 // particles
                 int numParticles = random.nextInt((int) (sizeComponent.size * 2), (int) (sizeComponent.size * 4));
                 for (int i = 0; i < numParticles; i++) {
-                    Engine.addEntity(particle(childPositionComponent, sizeComponent.size));
+                    Engine.get().addEntity(particle(childPositionComponent, sizeComponent.size));
                 }
                 return;
             }
@@ -80,8 +81,8 @@ public class AsteroidSPI implements IEntitySPI {
             vel1.velocity.add(perp);
             vel2.velocity.add(perp.getMultiplied(-1));
 
-            Engine.addEntity(child1);
-            Engine.addEntity(child2);
+            Engine.get().addEntity(child1);
+            Engine.get().addEntity(child2);
         };
         asteroid.add(new LayerComponent(LayerComponent.Layer.ENEMY));
 

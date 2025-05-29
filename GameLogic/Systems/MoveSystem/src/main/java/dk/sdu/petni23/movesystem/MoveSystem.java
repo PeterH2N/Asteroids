@@ -9,7 +9,7 @@ public class MoveSystem implements ISystem
     @Override
     public void update(double deltaTime)
     {
-        for (MoveNode node : Engine.getNodes(MoveNode.class)) {
+        for (MoveNode node : Engine.get().getNodes(MoveNode.class)) {
             var pos = node.positionComponent.position;
             pos.add(node.velocityComponent.velocity.getMultiplied(deltaTime));
 

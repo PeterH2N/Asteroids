@@ -30,6 +30,7 @@
         <module>CollisionSystem</module>
         <module>RespawnSystem</module>
         <module>AISystem</module>
+        <module>ScoreSystem</module>
     </modules>
 
     <dependencies>

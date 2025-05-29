@@ -1,7 +1,6 @@
 package dk.sdu.petni23.roundsystem;
 
 import dk.sdu.petni23.common.components.PositionComponent;
-import dk.sdu.petni23.common.components.RoundComponent;
 import dk.sdu.petni23.common.components.SizeComponent;
 import dk.sdu.petni23.common.data.GameData;
 import dk.sdu.petni23.common.util.Vector2D;
@@ -37,16 +36,16 @@ public class RoundSystem implements ISystem, IPlugin {
         int numAsteroids = 5 + roundNumber * 2;
         int numUFOs = roundNumber / 2;
         for (int i = 0; i < numAsteroids; i++) {
-            Engine.addEntity(getAsteroid());
+            Engine.get().addEntity(getAsteroid());
         }
         for (int i = 0; i < numUFOs; i++) {
-            Engine.addEntity(getUFO());
+            Engine.get().addEntity(getUFO());
         }
         roundNumber++;
     }
 
     Entity getAsteroid() {
-        IEntitySPI asteroidSPI = Engine.getEntitySPI("AsteroidSPI");
+        IEntitySPI asteroidSPI = Engine.get().getEntitySPI("AsteroidSPI");
         if (asteroidSPI == null) return null;
         double s = random.nextDouble(1,5);
         var size = new Entity(null);
@@ -62,7 +61,7 @@ public class RoundSystem implements ISystem, IPlugin {
     }
 
     Entity getUFO() {
-        var ufoSPI = Engine.getEntitySPI("UFOSPI");
+        var ufoSPI = Engine.get().getEntitySPI("UFOSPI");
         if (ufoSPI == null) return null;
         var ufo = ufoSPI.create(null);
         // ufo's will be moved at least 2/3 world size away from center

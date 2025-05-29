@@ -12,7 +12,7 @@ public class AISystem implements ISystem {
     Random random = new Random();
     @Override
     public void update(double deltaTime) {
-        for (var node : Engine.getNodes(AINode.class)) {
+        for (var node : Engine.get().getNodes(AINode.class)) {
             if (node == player) continue; // don't control player with AI of course
             // movement
             if (node.aiComponent.timeSinceChangedDirection >= node.aiComponent.timeUntilNextMove) {
@@ -39,9 +39,9 @@ public class AISystem implements ISystem {
 
             // shooting
             if (node.aiComponent.timeSinceLastShot >= 3) {
-                var bulletSPI = Engine.getEntitySPI("BulletSPI");
+                var bulletSPI = Engine.get().getEntitySPI("BulletSPI");
                 if (bulletSPI != null) {
-                    Engine.addEntity(bulletSPI.create(node.parentEntity));
+                    Engine.get().addEntity(bulletSPI.create(node.parentEntity));
                     node.aiComponent.timeSinceLastShot = 0;
                 }
             } else node.aiComponent.timeSinceLastShot += deltaTime;

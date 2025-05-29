@@ -6,7 +6,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 
 public class GameData
@@ -43,7 +42,7 @@ public class GameData
     }
 
     public static void gameOver() {
-        Engine.stop();
-        Engine.start();
+        Engine.get().stop();
+        Engine.get().start();
     }
 }

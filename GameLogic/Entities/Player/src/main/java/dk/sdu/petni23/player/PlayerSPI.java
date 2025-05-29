@@ -55,9 +55,9 @@ public class PlayerSPI implements IEntitySPI
             // making trail flicker
             int flicker = trailFlicker.incrementAndGet();
             if (flicker > 8 && flicker < 11)
-                Engine.removeEntity(trail);
+                Engine.get().removeEntity(trail);
             else if (flicker > 11) {
-                Engine.addEntity(trail);
+                Engine.get().addEntity(trail);
                 trailFlicker.set(0);
             }
             velocityComponent.velocity.add(directionComponent.dir.getMultiplied(0.3));
@@ -65,25 +65,25 @@ public class PlayerSPI implements IEntitySPI
         });
 
         // showing trail or not
-        control.isPressed.put(KeyCode.UP, node -> Engine.addEntity(trail));
-        control.isReleased.put(KeyCode.UP, node -> Engine.removeEntity(trail));
+        control.isPressed.put(KeyCode.UP, node -> Engine.get().addEntity(trail));
+        control.isReleased.put(KeyCode.UP, node -> Engine.get().removeEntity(trail));
 
         // shooting
-        IEntitySPI bulletSPI = Engine.getEntitySPI("BulletSPI");
+        IEntitySPI bulletSPI = Engine.get().getEntitySPI("BulletSPI");
         control.isPressed.put(KeyCode.SPACE, node -> {
            if (bulletSPI == null) return;
-           Engine.addEntity(bulletSPI.create(player));
+           Engine.get().addEntity(bulletSPI.create(player));
         });
 
         var collision = player.add(new CollisionComponent());
         collision.onCollision = node -> {
-            Engine.removeEntity(player);
-            Engine.removeEntity(trail);
+            Engine.get().removeEntity(player);
+            Engine.get().removeEntity(trail);
 
             // particles
-            Engine.addEntity(line(new PolygonComponent(A,B), positionComponent, directionComponent, velocityComponent));
-            Engine.addEntity(line(new PolygonComponent(A,C), positionComponent, directionComponent, velocityComponent));
-            Engine.addEntity(line(new PolygonComponent(F,G), positionComponent, directionComponent, velocityComponent));
+            Engine.get().addEntity(line(new PolygonComponent(A,B), positionComponent, directionComponent, velocityComponent));
+            Engine.get().addEntity(line(new PolygonComponent(A,C), positionComponent, directionComponent, velocityComponent));
+            Engine.get().addEntity(line(new PolygonComponent(F,G), positionComponent, directionComponent, velocityComponent));
 
         };
         player.add(new RespawnComponent());

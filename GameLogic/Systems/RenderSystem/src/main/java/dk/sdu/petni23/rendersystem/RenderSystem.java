@@ -1,7 +1,7 @@
 package dk.sdu.petni23.rendersystem;
 
-import dk.sdu.petni23.gameengine.Engine;
 import dk.sdu.petni23.common.data.GameData;
+import dk.sdu.petni23.gameengine.Engine;
 import dk.sdu.petni23.gameengine.services.IPlugin;
 import dk.sdu.petni23.gameengine.services.ISystem;
 import dk.sdu.petni23.common.util.Vector2D;
@@ -20,7 +20,7 @@ public class RenderSystem implements ISystem, IPlugin
         gc.fillRect(0,0, GameData.getDisplayWidth(), GameData.getDisplayHeight());
         gc.setStroke(Color.WHITE);
         gc.setFill(Color.WHITE);
-        for (var node : Engine.getNodes(RenderNode.class)) {
+        for (var node : Engine.get().getNodes(RenderNode.class)) {
             if (!node.displayComponent.visible) continue;
             renderPolygon(node, gc);
             renderCircle(node, gc);
@@ -63,7 +63,7 @@ public class RenderSystem implements ISystem, IPlugin
     public void start()
     {
         canvas = new Canvas();
-        GameData.gameWindow.getChildren().add(canvas);
+        GameData.gameWindow.getChildren().addFirst(canvas);
         canvas.widthProperty().bind(GameData.gameWindow.widthProperty());
         canvas.heightProperty().bind(GameData.gameWindow.heightProperty());
     }
