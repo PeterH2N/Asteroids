@@ -35,6 +35,8 @@
     <file url="file://$PROJECT_DIR$/GameLogic/Systems/RespawnSystem/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Systems/RoundSystem/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Systems/RoundSystem/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Systems/ScoreSystem/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameLogic/Systems/ScoreSystem/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Systems/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/Systems/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GameLogic/src/main/java" charset="UTF-8" />

@@ -7,11 +7,13 @@ import javafx.geometry.VPos;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 public class ScoreSystem implements ISystem, IPlugin {
     private static final Font font = Font.loadFont(ScoreSystem.class.getResourceAsStream("/DS-DIGI.TTF"), 40);
-    public static int score;
     private static Text scoreText;
+    public static int score;
     @Override
     public void update(double deltaTime) {
         scoreText.setText("SCORE: " + score);
@@ -24,7 +26,6 @@ public class ScoreSystem implements ISystem, IPlugin {
 
     @Override
     public void start() {
-        score = 0;
         scoreText = new Text();
         scoreText.setFont(font);
         GameData.gameWindow.getChildren().add(scoreText);

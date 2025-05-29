@@ -5,6 +5,12 @@ import dk.sdu.petni23.scoresystem.ScoreNode;
 import dk.sdu.petni23.scoresystem.ScoreSystem;
 
 module ScoreSystem {
+    requires spring.core;
+    requires spring.web;
+    requires spring.jcl;
+    requires spring.integration.core;
+    requires spring.boot.autoconfigure;
+    requires spring.boot;
     requires Common;
     requires GameEngine;
     requires javafx.graphics;
