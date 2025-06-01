@@ -61,7 +61,7 @@ public class PlayerSPI implements IEntitySPI
                 trailFlicker.set(0);
             }
             velocityComponent.velocity.add(directionComponent.dir.getMultiplied(0.3));
-            if (velocityComponent.velocity.getLength() > 8) velocityComponent.velocity.normalize().multiply(7);
+            if (velocityComponent.velocity.getLength() > 8) velocityComponent.velocity.normalize().multiply(8);
         });
 
         // showing trail or not

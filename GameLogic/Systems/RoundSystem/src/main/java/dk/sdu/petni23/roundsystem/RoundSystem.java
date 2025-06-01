@@ -23,11 +23,15 @@ public class RoundSystem implements ISystem, IPlugin {
     private final static Random random = new Random();
     @Override
     public void update(double deltaTime) {
-
+        var list = roundEntities;
         // new round should start
-        if (currentDelay >= delayBetweenRounds) startRound();
+        if (currentDelay >= delayBetweenRounds) {
+            startRound();
+        }
         // if all entities are defeated, we count down till next round
-        else if (roundEntities.isEmpty()) currentDelay += deltaTime;
+        else if (roundEntities.isEmpty()) {
+            currentDelay += deltaTime;
+        }
     }
 
     void startRound() {

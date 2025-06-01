@@ -46,9 +46,13 @@ public class Main extends Application
 
     private void render() {
         new AnimationTimer() {
+            private long lastTime = 0;
             @Override
             public void handle(long now) {
-                Engine.get().update(1.0/60);
+                double deltaTime = (double) (now - lastTime) / 1000000000;
+                Engine.get().update(1d/60);
+                lastTime = now;
+                System.out.println(deltaTime);
             }
         }.start();
     }

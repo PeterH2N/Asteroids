@@ -24,7 +24,7 @@ public class Engine
     private Engine(ApplicationContext ctx) {
         this.ctx = ctx;
         plugins = getBean("plugins");
-        nodeSPIs = getBean("nodes");
+        nodeClasses = getBean("nodes");
         entitySPIs = getBean("entitySPIs");
         systems = getBean("systems");
     }
@@ -33,13 +33,13 @@ public class Engine
     private final List<ISystem> systems;
     private final List<IPlugin> plugins;
     private final List<Node> nodes = new ArrayList<>();
-    private final Collection<? extends Node> nodeSPIs;
+    private final Collection<? extends Node> nodeClasses;
     private final List<IEntitySPI> entitySPIs;
     public Entity addEntity(Entity entity) {
         if (entity == null) return null;
         if (entities.get(entity.getId()) != null) return entity;
         entities.put(entity.getId(), entity);
-        for (var spi : nodeSPIs) {
+        for (var spi : nodeClasses) {
             if (spi.requirementsMet(entity.getComponentClasses())) {
                 try {
                     var node = spi.getClass().getConstructor().newInstance();
